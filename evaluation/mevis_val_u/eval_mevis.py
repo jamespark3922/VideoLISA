@@ -25,10 +25,11 @@ def eval_queue(q, rank, out_dict, mevis_pred_path):
 
         exp_name = f'{vid_name}_{exp}'
 
-        if not os.path.exists(f'{mevis_pred_path}/{vid_name}'):
+        if not os.path.exists(f'{mevis_pred_path}/{vid_name}/{exp}'):
             continue
 
         pred_0_path = f'{mevis_pred_path}/{vid_name}/{exp}/00000.png'
+        print(pred_0_path)
         pred_0 = cv2.imread(pred_0_path, cv2.IMREAD_GRAYSCALE)
         h, w = pred_0.shape
         vid_len = len(vid['frames'])
@@ -52,8 +53,8 @@ def eval_queue(q, rank, out_dict, mevis_pred_path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mevis_exp_path", type=str, default="/data_sdf/LLM_DATA/video_centric/RefVOS/mevis/valid_u/meta_expressions.json")
-    parser.add_argument("--mevis_mask_path", type=str, default="/data_sdf/LLM_DATA/video_centric/RefVOS/mevis/valid_u/mask_dict.json")
+    parser.add_argument("--mevis_exp_path", type=str, default="/weka/oe-training-default/mm-olmo/video_datasets/mevis/MeViS_release/valid_u/meta_expressions.json")
+    parser.add_argument("--mevis_mask_path", type=str, default="/weka/oe-training-default/mm-olmo/video_datasets/mevis/MeViS_release/valid_u/mask_dict.json")
     parser.add_argument("--mevis_pred_path", type=str, default="results/VideoLISA-MeViS-Valid-U")
     parser.add_argument("--save_name", type=str, default="results/VideoLISA-MeViS-Valid-U/mevis_valid_u_result.json")
     args = parser.parse_args()
@@ -85,6 +86,8 @@ if __name__ == '__main__':
 
     j = [output_dict[x][0] for x in output_dict]
     f = [output_dict[x][1] for x in output_dict]
+
+    print(f'total processed: {len(output_dict)}')
 
     print(f'J: {np.mean(j)}')
     print(f'F: {np.mean(f)}')

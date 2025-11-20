@@ -184,9 +184,9 @@ def main(args):
     model.eval()
 
     # ---------------------------- read data ------------------------------------
-    meta_exp_path = "/data_sdf/LLM_DATA/video_centric/RefVOS/mevis/valid_u/meta_expressions.json"
+    meta_exp_path = "/weka/oe-training-default/mm-olmo/video_datasets/mevis/MeViS_release/valid_u/meta_expressions.json"
     meta_exp = json.load(open(meta_exp_path, 'r'))
-    video_folder = "/data_sdf/LLM_DATA/video_centric/RefVOS/mevis/valid_u/JPEGImages"
+    video_folder = "/weka/oe-training-default/mm-olmo/video_datasets/mevis/MeViS_release/valid_u/JPEGImages"
 
     # ------------------ split into subsets for each GPU -------------------------
     job_list = []
